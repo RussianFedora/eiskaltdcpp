@@ -22,6 +22,7 @@ BuildRequires:	gtk2-devel
 BuildRequires:	libnotify-devel
 BuildRequires:	lua-devel
 BuildRequires:	libglade2-devel
+BuildRequires:	libidn-devel
 %if 0%{?fedora} < 14
 BuildRequires:	git
 %endif
@@ -119,6 +120,7 @@ rm -rf %{buildroot}
 %changelog
 * Mon Apr 25 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.2-1.R
 - update to 2.2.2
+- added BR: libidn-devel
 
 * Wed Mar  9 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.1-1
 - update to 2.2.1
