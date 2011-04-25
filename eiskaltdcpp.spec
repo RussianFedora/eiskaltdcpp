@@ -115,6 +115,7 @@ rm -rf %{buildroot}
 %{_mandir}/man?/*qt*
 %{_datadir}/eiskaltdcpp/qt/*
 %{_datadir}/applications/*qt*.desktop
+%{_datadir}/eiskaltdcpp/update_geoip
 
 
 %changelog
