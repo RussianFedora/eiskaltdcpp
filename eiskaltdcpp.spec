@@ -1,6 +1,6 @@
 Summary:	QT Direct Connect client
 Name:		eiskaltdcpp
-Version:	2.2.2
+Version:	2.2.3
 Release:	1%{?dist}.R
 
 License:	GPLv3
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Jun 27 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.3-1.R
+- update to 2.2.3
+
 * Mon Apr 25 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.2-1.R
 - update to 2.2.2
 - added BR: libidn-devel
