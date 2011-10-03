@@ -1,33 +1,31 @@
-Summary:	QT Direct Connect client
-Name:		eiskaltdcpp
-Version:	2.2.3
-Release:	1%{?dist}.R
+Summary:    QT Direct Connect client
+Name:       eiskaltdcpp
+Version:    2.2.4
+Release:    1%{?dist}.R
 
-License:	GPLv3
-Group:		Applications/Internet
-URL:		http://code.google.com/p/eiskaltdc
-Source0:	http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.bz2
+License:    GPLv3
+Group:      Applications/Internet
+URL:        http://code.google.com/p/eiskaltdc
+Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+#BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:	cmake
-BuildRequires:	boost-devel
-BuildRequires:	aspell-devel
-BuildRequires:	libupnp-devel
-BuildRequires:	qt-devel >= 4.3
-BuildRequires:	bzip2-devel
-BuildRequires:	openssl-devel
-BuildRequires:	gettext-devel
-BuildRequires:	gtk2-devel
-BuildRequires:	libnotify-devel
-BuildRequires:	lua-devel
-BuildRequires:	libglade2-devel
-BuildRequires:	libidn-devel
-%if 0%{?fedora} < 14
-BuildRequires:	git
-%endif
+BuildRequires:  cmake
+BuildRequires:  boost-devel
+BuildRequires:  aspell-devel
+BuildRequires:  libupnp-devel
+BuildRequires:  qt-devel >= 4.3
+BuildRequires:  bzip2-devel
+BuildRequires:  openssl-devel
+BuildRequires:  gettext-devel
+BuildRequires:  gtk2-devel
+BuildRequires:  libnotify-devel
+BuildRequires:  lua-devel
+BuildRequires:  libglade2-devel
+BuildRequires:  libidn-devel
+BuildRequires:  gcc >= 4.4.0
 
-Requires:	%{name}-gui = %{version}-%{release}
+Requires:       %{name}-gui = %{version}-%{release}
 
 
 %description
@@ -36,25 +34,23 @@ with other DC clients, such as the original DC from Neomodus, DC++ and
 derivatives. EiskaltDC++ also interoperates with all common DC hub software.
 
 %package gtk
-Group:		Applications/Internet
-Summary:	GTK-based graphical interface
-Provides:	%{name}-gui = %{version}-%{release}
-Requires:	%{name} = %{version}-%{release}
+Group:      Applications/Internet
+Summary:    GTK-based graphical interface
+Provides:   %{name}-gui = %{version}-%{release}
+Requires:   %{name} = %{version}-%{release}
 
 %description gtk
 Gtk interface based on code of FreeDC++ and LinuxDC++
 
 
 %package qt
-Group:		Applications/Internet
-Summary:	Qt-based graphical interface
-Provides:	%{name}-gui = %{version}-%{release}
-Requires:	%{name} = %{version}-%{release}
+Group:      Applications/Internet
+Summary:    Qt-based graphical interface
+Provides:   %{name}-gui = %{version}-%{release}
+Requires:   %{name} = %{version}-%{release}
 
 %description qt
 Qt-based graphical interface
-
-
 
 
 %prep
@@ -64,15 +60,15 @@ Qt-based graphical interface
 %build
 rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
 %cmake \
-	-DUSE_ASPELL=ON \
-	-DUSE_QT=ON \
-	-DFREE_SPACE_BAR_C=ON \
-	-DUSE_MINIUPNP=ON \
-	-DLOCAL_MINIUPNP=ON \
-	-DUSE_GTK=ON \
-	-DDBUS_NOTIFY=ON \
-	-DUSE_JS=ON \
-	-DWITH_LUASCRIPTS=ON
+    -DUSE_ASPELL=ON \
+    -DUSE_QT=ON \
+    -DFREE_SPACE_BAR_C=ON \
+    -DUSE_MINIUPNP=ON \
+    -DLOCAL_MINIUPNP=ON \
+    -DUSE_GTK=ON \
+    -DDBUS_NOTIFY=ON \
+    -DUSE_JS=ON \
+    -DWITH_LUASCRIPTS=ON
 
 make %{?_smp_mflags}
 
@@ -119,6 +115,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Oct 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-1.R
+- Update to 2.2.4
+
 * Mon Jun 27 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.3-1.R
 - update to 2.2.3
 
