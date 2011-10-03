@@ -8,8 +8,6 @@ Group:      Applications/Internet
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 
-#BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  aspell-devel
