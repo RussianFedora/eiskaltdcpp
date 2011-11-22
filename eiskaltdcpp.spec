@@ -1,7 +1,8 @@
-Summary:    QT Direct Connect client
 Name:       eiskaltdcpp
 Version:    2.2.4
-Release:    1%{?dist}.R
+Release:    2%{?dist}.R
+Summary:    QT Direct Connect client
+Summary(ru):Клиент сети Direct Connect на QT
 
 License:    GPLv3
 Group:      Applications/Internet
@@ -31,25 +32,37 @@ EiskaltDC++ is a program the uses the Direct Connect protocol. It is compatible
 with other DC clients, such as the original DC from Neomodus, DC++ and
 derivatives. EiskaltDC++ also interoperates with all common DC hub software.
 
+%description -l ru
+EiskaltDC++ использует протокол Direct Connect. Программа совместима с другими
+клиентами DC, так же как и с оригинальным DC от Neomodus, с DC++ и
+производными. EiskaltDC++ also взаимодействует со всем обычным ПО хабов DC
+
 %package gtk
 Group:      Applications/Internet
 Summary:    GTK-based graphical interface
+Summary(ru):Графический интерфейс GTK
 Provides:   %{name}-gui = %{version}-%{release}
 Requires:   %{name} = %{version}-%{release}
 
 %description gtk
 Gtk interface based on code of FreeDC++ and LinuxDC++
 
+%description gtk -l ru
+Gtk интерфейс основанный на коде FreeDC++ и LinuxDC++
+
 
 %package qt
 Group:      Applications/Internet
 Summary:    Qt-based graphical interface
+Summary(ru):Графический интерфейс QT
 Provides:   %{name}-gui = %{version}-%{release}
 Requires:   %{name} = %{version}-%{release}
 
 %description qt
 Qt-based graphical interface
 
+%description qt -l ru
+Интерфейс QT для %{name}
 
 %prep
 %setup -q
@@ -113,6 +126,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-2.R
+- Added description in russian language
+
 * Mon Oct 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-1.R
 - Update to 2.2.4
 
