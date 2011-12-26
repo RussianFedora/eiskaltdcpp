@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
-Version:    2.2.4
-Release:    2%{?dist}.R
+Version:    2.2.5
+Release:    1%{?dist}.R
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -8,6 +8,7 @@ License:    GPLv3
 Group:      Applications/Internet
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
+Source100:  README.RFRemix
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -82,6 +83,7 @@ rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
     -DWITH_LUASCRIPTS=ON
 
 make %{?_smp_mflags}
+cp %{SOURCE100} .
 
 
 %install
@@ -98,7 +100,7 @@ rm -rf %{buildroot}
 
 %files -f lib%{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING
+%doc AUTHORS COPYING README.RFRemix
 %{_datadir}/eiskaltdcpp/emoticons
 %{_datadir}/eiskaltdcpp/examples
 %{_libdir}/libeiskaltdcpp.so.*
@@ -126,6 +128,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Dec 26 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-1.R
+- Update to 2.2.5
+
 * Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-2.R
 - Added description in russian language
 
