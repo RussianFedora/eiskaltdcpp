@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.5
-Release:    1%{?dist}.R
+Release:    2%{?dist}.R
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -129,7 +129,10 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Mon Dec 26 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-1.R
+* Tue Dec 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-2.R
+- Removed php
+
+* Mon Dec 26 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-2.R
 - Update to 2.2.5
 
 * Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-2.R
