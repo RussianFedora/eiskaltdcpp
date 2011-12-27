@@ -23,7 +23,7 @@ BuildRequires:  libnotify-devel
 BuildRequires:  lua-devel
 BuildRequires:  libglade2-devel
 BuildRequires:  libidn-devel
-BuildRequires:  gcc >= 4.4.0
+BuildRequires:  gcc >= 4.5.0
 
 Requires:       %{name}-gui = %{version}-%{release}
 
@@ -89,6 +89,7 @@ cp %{SOURCE100} .
 %install
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
+rm -rf %{buildroot}/usr/share/%{name}/examples/*.php
 
 %find_lang %{name}-gtk
 %find_lang lib%{name}
