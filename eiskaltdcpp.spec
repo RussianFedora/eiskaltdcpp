@@ -10,15 +10,15 @@ URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 Source100:  README.RFRemix
 
-BuildRequires:  cmake
+BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
 BuildRequires:  aspell-devel
 BuildRequires:  libupnp-devel
-BuildRequires:  qt-devel >= 4.3
+BuildRequires:  qt-devel >= 4.4.0
 BuildRequires:  bzip2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  gettext-devel
-BuildRequires:  gtk2-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  libnotify-devel
 BuildRequires:  lua-devel
 BuildRequires:  libglade2-devel
@@ -77,7 +77,7 @@ rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
     -DFREE_SPACE_BAR_C=ON \
     -DUSE_MINIUPNP=ON \
     -DLOCAL_MINIUPNP=ON \
-    -DUSE_GTK=ON \
+    -DUSE_GTK3=ON \
     -DDBUS_NOTIFY=ON \
     -DUSE_JS=ON \
     -DWITH_LUASCRIPTS=ON
