@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.6
-Release:    1%{?dist}.R
+Release:    1%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
