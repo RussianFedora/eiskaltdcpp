@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.4
-Release:    2%{?dist}.R
+Release:    3%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -13,7 +13,7 @@ BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  aspell-devel
 BuildRequires:  libupnp-devel
-BuildRequires:  qt-devel >= 4.3
+BuildRequires:  qt4-devel >= 4.3
 BuildRequires:  bzip2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  gettext-devel
@@ -77,6 +77,7 @@ rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
     -DUSE_MINIUPNP=ON \
     -DLOCAL_MINIUPNP=ON \
     -DUSE_GTK=ON \
+    -DUSE_LIBNOTIFY=OFF \
     -DDBUS_NOTIFY=ON \
     -DUSE_JS=ON \
     -DWITH_LUASCRIPTS=ON
@@ -126,6 +127,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Mar  6 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 2.2.4-3
+- the first and the last build for EL6
+- disable libnotify support
+
 * Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-2.R
 - Added description in russian language
 
