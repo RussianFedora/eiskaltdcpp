@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.6
-Release:    1%{?dist}.R
+Release:    3%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -129,6 +129,12 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-3.R
+- Switch to GTK3 interface
+
+* Tue Feb 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-2.R
+- Back to GTK2 interface
+
 * Tue Feb 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-1.R
 - Update to 2.2.6
 
