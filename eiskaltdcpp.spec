@@ -24,7 +24,6 @@ BuildRequires:  libnotify-devel
 BuildRequires:  lua-devel
 BuildRequires:  libglade2-devel
 BuildRequires:  libidn-devel
-BuildRequires:  gcc >= 4.5.0
 
 Requires:       %{name}-gui = %{version}-%{release}
 
