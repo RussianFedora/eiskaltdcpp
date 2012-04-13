@@ -9,7 +9,7 @@ Group:      Applications/Internet
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 Source100:  README.RFRemix
-Patch0:     eiskaltdcpp-2.2.6-gcc47.patch
+Patch0:     eiskaltdcpp-gcc47.patch
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
