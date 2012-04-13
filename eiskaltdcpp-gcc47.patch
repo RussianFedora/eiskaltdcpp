@@ -1,0 +1,14 @@
+diff -uNdr eiskaltdcpp-2.2.6/eiskaltdcpp-qt/src/PublicHubs.cpp eiskaltdcpp-2.2.6_1/eiskaltdcpp-qt/src/PublicHubs.cpp
+--- eiskaltdcpp-2.2.6/eiskaltdcpp-qt/src/PublicHubs.cpp	2012-02-20 23:55:51.000000000 +0400
++++ eiskaltdcpp-2.2.6_1/eiskaltdcpp-qt/src/PublicHubs.cpp	2012-04-13 09:39:11.051524605 +0400
+@@ -151,8 +151,8 @@
+         return;
+ 
+     if (proxy)
+-        std::transform(indexes.begin(), indexes.end(), indexes.begin(), [&proxy](QModelIndex i) { return proxy->mapToSource(i); });
+-
++        std::transform(indexes.begin(), indexes.end(), indexes.begin(), [&](QModelIndex i) { return proxy->mapToSource(i); });
++    
+     WulforUtil *WU = WulforUtil::getInstance();
+ 
+     QMenu *m = new QMenu();

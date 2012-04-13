@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.6
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -9,6 +9,7 @@ Group:      Applications/Internet
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 Source100:  README.RFRemix
+Patch0:     eiskaltdcpp-2.2.6-gcc47.patch
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
@@ -67,7 +68,7 @@ Qt-based graphical interface
 
 %prep
 %setup -q
-
+%patch0 -p1 -b .gcc47
 
 %build
 rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
@@ -90,6 +91,8 @@ cp %{SOURCE100} .
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 rm -rf %{buildroot}/usr/share/%{name}/examples/*.php
+
+eiskaltdcpp-qt/src/PublicHubs.cpp
 
 %find_lang %{name}-gtk
 %find_lang lib%{name}
@@ -129,6 +132,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Apr 13 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-4.R
+- Added patch for compile with gcc 4.7
+
 * Thu Mar 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-3.R
 - Switch to GTK3 interface
 
