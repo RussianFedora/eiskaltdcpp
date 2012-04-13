@@ -91,8 +91,6 @@ rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 rm -rf %{buildroot}/usr/share/%{name}/examples/*.php
 
-eiskaltdcpp-qt/src/PublicHubs.cpp
-
 %find_lang %{name}-gtk
 %find_lang lib%{name}
 
