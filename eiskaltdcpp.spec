@@ -96,6 +96,9 @@ rm -rf %{buildroot}/usr/share/%{name}/examples/*.php
 %find_lang %{name}-gtk
 %find_lang lib%{name}
 
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
 
 %clean
 rm -rf %{buildroot}
