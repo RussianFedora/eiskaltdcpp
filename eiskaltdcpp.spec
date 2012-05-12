@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.6
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -10,6 +10,7 @@ URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 Source100:  README.RFRemix
 Patch0:     eiskaltdcpp-gcc47.patch
+Patch1:     eiskaltdcpp-qtsegfault.patch
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
@@ -68,6 +69,7 @@ Qt-based graphical interface
 %prep
 %setup -q
 %patch0 -p1 -b .gcc47
+%patch1 -p1 -b .qtsegfault
 
 %build
 rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
@@ -129,6 +131,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-5.R
+- Added patch for non segfault in QT
+
 * Thu Apr 13 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-4.R
 - Added patch for compile with gcc 4.7
 
