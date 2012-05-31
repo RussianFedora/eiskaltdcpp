@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
-Version:    2.2.6
-Release:    5%{?dist}
+Version:    2.2.7
+Release:    1%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -8,15 +8,12 @@ License:    GPLv3
 Group:      Applications/Internet
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
-Source100:  README.RFRemix
-Patch0:     eiskaltdcpp-gcc47.patch
-Patch1:     eiskaltdcpp-qtsegfault.patch
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
 BuildRequires:  aspell-devel
 BuildRequires:  libupnp-devel
-BuildRequires:  qt-devel >= 4.4.0
+BuildRequires:  qt-devel >= 4.6.0
 BuildRequires:  bzip2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  gettext-devel
@@ -68,8 +65,6 @@ Qt-based graphical interface
 
 %prep
 %setup -q
-%patch0 -p1 -b .gcc47
-%patch1 -p1 -b .qtsegfault
 
 %build
 rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
@@ -85,7 +80,6 @@ rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
     -DWITH_LUASCRIPTS=ON
 
 make %{?_smp_mflags}
-cp %{SOURCE100} .
 
 
 %install
@@ -106,7 +100,7 @@ rm -rf %{buildroot}
 
 %files -f lib%{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING README.RFRemix
+%doc AUTHORS COPYING
 %{_datadir}/eiskaltdcpp/emoticons
 %{_datadir}/eiskaltdcpp/examples
 %{_libdir}/libeiskaltdcpp.so.*
@@ -134,6 +128,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 31 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-1.R
+- Update to 2.2.7
+
 * Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-5.R
 - Added patch for non segfault in QT
 
