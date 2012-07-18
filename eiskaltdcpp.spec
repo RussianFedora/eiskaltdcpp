@@ -22,6 +22,7 @@ BuildRequires:  libnotify-devel
 BuildRequires:  lua-devel
 BuildRequires:  libglade2-devel
 BuildRequires:  libidn-devel
+BuildRequires:  desktop-file-utils
 
 Requires:       %{name}-gui = %{version}-%{release}
 
@@ -41,7 +42,7 @@ Group:      Applications/Internet
 Summary:    GTK-based graphical interface
 Summary(ru):Графический интерфейс GTK
 Provides:   %{name}-gui = %{version}-%{release}
-Requires:   %{name} = %{version}-%{release}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description gtk
 Gtk interface based on code of FreeDC++ and LinuxDC++
@@ -55,7 +56,7 @@ Group:      Applications/Internet
 Summary:    Qt-based graphical interface
 Summary(ru):Графический интерфейс QT
 Provides:   %{name}-gui = %{version}-%{release}
-Requires:   %{name} = %{version}-%{release}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description qt
 Qt-based graphical interface
@@ -83,9 +84,10 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 rm -rf %{buildroot}/usr/share/%{name}/examples/*.php
+
+desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
 
 %find_lang %{name}-gtk
 %find_lang lib%{name}
@@ -94,12 +96,8 @@ rm -rf %{buildroot}/usr/share/%{name}/examples/*.php
 
 %postun -p /sbin/ldconfig
 
-%clean
-rm -rf %{buildroot}
-
 
 %files -f lib%{name}.lang
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING
 %{_datadir}/eiskaltdcpp/emoticons
 %{_datadir}/eiskaltdcpp/examples
@@ -109,7 +107,6 @@ rm -rf %{buildroot}
 
 
 %files gtk -f %{name}-gtk.lang
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING
 %{_bindir}/*gtk
 %{_mandir}/man?/*gtk*
@@ -118,7 +115,6 @@ rm -rf %{buildroot}
 
 
 %files qt
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING
 %{_bindir}/*qt
 %{_mandir}/man?/*qt*
