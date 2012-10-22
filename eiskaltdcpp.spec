@@ -35,7 +35,7 @@ derivatives. EiskaltDC++ also interoperates with all common DC hub software.
 %description -l ru
 EiskaltDC++ использует протокол Direct Connect. Программа совместима с другими
 клиентами DC, так же как и с оригинальным DC от Neomodus, с DC++ и
-производными. EiskaltDC++ also взаимодействует со всем обычным ПО хабов DC
+производными. EiskaltDC++ взаимодействует со всем обычным ПО хабов DC.
 
 %package gtk
 Group:      Applications/Internet
