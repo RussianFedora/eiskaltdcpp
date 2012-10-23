@@ -69,6 +69,7 @@ Qt-based graphical interface
 
 %build
 rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
+export LDFLAGS="-lboost_system"
 %cmake \
     -DUSE_ASPELL=ON \
     -DUSE_QT=ON \
