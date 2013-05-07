@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -125,6 +125,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
+* Tue May 07 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-2.R
+- Rebuild for F19
+
 * Thu May 31 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-1.R
 - Update to 2.2.7
 
