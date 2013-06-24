@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
-Version:    2.2.7
-Release:    2%{?dist}
+Version:    2.2.8
+Release:    1%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
 
@@ -125,6 +125,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
+* Mon Jun 24 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.8-1.R
+- Update to 2.2.8
+
 * Tue May 07 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-2.R
 - Rebuild for F19
 
@@ -134,10 +137,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
 * Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-5.R
 - Added patch for non segfault in QT
 
-* Thu Apr 13 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-4.R
+* Fri Apr 13 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-4.R
 - Added patch for compile with gcc 4.7
 
-* Thu Mar 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-3.R
+* Wed Mar 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-3.R
 - Switch to GTK3 interface
 
 * Tue Feb 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-2.R
@@ -204,7 +207,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
 - replace antique .spec.in with one based on Fedora Extras .spec
 - remove extra desktop file and icon sources
 
-* Mon Jan  3 2007 Luke Macken <lmacken@redhat.com> 0.3.8-1
+* Wed Jan 03 2007 Luke Macken <lmacken@redhat.com> 0.3.8-1
 - 0.3.8 from new upstream
 - Remove valknut-0.3.7-extra-qualification.patch
 
@@ -223,7 +226,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
 * Wed Nov 09 2005 Luke Macken <lmacken@redhat.com> 0.3.7-5
 - Rebuild for new openssl
 
-* Tue Oct 03 2005 Luke Macken <lmacken@redhat.com> 0.3.7-4
+* Mon Oct 03 2005 Luke Macken <lmacken@redhat.com> 0.3.7-4
 - Add openssl-devel to BuildRequires
 
 * Mon Oct 03 2005 Luke Macken <lmacken@redhat.com> 0.3.7-3
