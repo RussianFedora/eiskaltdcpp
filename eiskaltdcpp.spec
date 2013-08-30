@@ -1,5 +1,5 @@
 Name:       eiskaltdcpp
-Version:    2.2.8
+Version:    2.2.9
 Release:    1%{?dist}
 Summary:    QT Direct Connect client
 Summary(ru):Клиент сети Direct Connect на QT
@@ -13,7 +13,7 @@ BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
 BuildRequires:  aspell-devel
 BuildRequires:  libupnp-devel
-BuildRequires:  qt-devel >= 4.6.0
+BuildRequires:  qt4-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  gettext-devel
@@ -23,8 +23,10 @@ BuildRequires:  lua-devel
 BuildRequires:  libglade2-devel
 BuildRequires:  libidn-devel
 BuildRequires:  desktop-file-utils
-
-Requires:       %{name}-gui = %{version}-%{release}
+BuildRequires:  pcre-devel
+BuildRequires:  miniupnpc-devel
+#Bugreport https://code.google.com/p/eiskaltdc/issues/detail?id=1435
+#BuildRequires:  lua-devel
 
 
 %description
@@ -41,54 +43,53 @@ EiskaltDC++ использует протокол Direct Connect. Програм
 Group:      Applications/Internet
 Summary:    GTK-based graphical interface
 Summary(ru):Графический интерфейс GTK
-Provides:   %{name}-gui = %{version}-%{release}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description gtk
-Gtk interface based on code of FreeDC++ and LinuxDC++
+Gtk interface using Gtk3 library.
 
 %description gtk -l ru
-Gtk интерфейс основанный на коде FreeDC++ и LinuxDC++
+Gtk интерфейс с использование библиотеки Gtk3.
 
 
 %package qt
 Group:      Applications/Internet
 Summary:    Qt-based graphical interface
 Summary(ru):Графический интерфейс QT
-Provides:   %{name}-gui = %{version}-%{release}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description qt
-Qt-based graphical interface
+Qt-based graphical interface.
 
 %description qt -l ru
-Интерфейс QT для %{name}
+Интерфейс QT для %{name}.
 
 %prep
 %setup -q
 
 %build
 rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
-export LDFLAGS="-lboost_system"
 %cmake \
     -DUSE_ASPELL=ON \
-    -DUSE_QT=ON \
+    -DUSE_QT_QML=ON \
     -DFREE_SPACE_BAR_C=ON \
     -DUSE_MINIUPNP=ON \
-    -DLOCAL_MINIUPNP=ON \
     -DUSE_GTK3=ON \
     -DDBUS_NOTIFY=ON \
     -DUSE_JS=ON \
-    -DWITH_LUASCRIPTS=ON
+    -DPERL_REGEX=ON \
+    -DUSE_CLI_XMLRPC=ON \
+    -DWITH_SOUNDS=ON \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo
+#     -DLUA_SCRIPT=ON \
+#     -DWITH_LUASCRIPTS=ON \
 
 make %{?_smp_mflags}
 
 
 %install
-make DESTDIR=%{buildroot} install
-rm -rf %{buildroot}/usr/share/%{name}/examples/*.php
-
-desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
+%make_install
+desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 %find_lang %{name}-gtk
 %find_lang lib%{name}
@@ -99,72 +100,78 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*qt*.desktop
 
 
 %files -f lib%{name}.lang
-%doc AUTHORS COPYING
-%{_datadir}/eiskaltdcpp/emoticons
-%{_datadir}/eiskaltdcpp/examples
+%doc AUTHORS COPYING LICENSE README TODO
+%{_bindir}/%{name}-cli-xmlrpc
+%{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
+#%{_datadir}/%{name}/luascripts
+%{_datadir}/%{name}/emoticons
+%{_datadir}/%{name}/examples
+%{_datadir}/%{name}/sounds
 %{_libdir}/libeiskaltdcpp.so.*
-%{_datadir}/icons/hicolor/*/apps/eiskaltdcpp.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/pixmaps/*.png
+%{_mandir}/man?/%{name}-cli-xmlrpc.1.gz
 
 
 %files gtk -f %{name}-gtk.lang
-%doc AUTHORS COPYING
 %{_bindir}/*gtk
 %{_mandir}/man?/*gtk*
-%{_datadir}/eiskaltdcpp/gtk/*
+%{_datadir}/%{name}/gtk
 %{_datadir}/applications/*gtk*.desktop
 
 
 %files qt
-%doc AUTHORS COPYING
 %{_bindir}/*qt
 %{_mandir}/man?/*qt*
-%{_datadir}/eiskaltdcpp/qt/*
+%{_datadir}/%{name}/qt
 %{_datadir}/applications/*qt*.desktop
-%{_datadir}/eiskaltdcpp/update_geoip
+%{_datadir}/%{name}/update_geoip
 
 
 %changelog
-* Mon Jun 24 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.8-1.R
+* Fri Aug 30 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-1
+- Update to 2.2.9
+
+* Mon Jun 24 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.8-1
 - Update to 2.2.8
 
-* Tue May 07 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-2.R
+* Tue May 07 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-2
 - Rebuild for F19
 
-* Thu May 31 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-1.R
+* Thu May 31 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.7-1
 - Update to 2.2.7
 
-* Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-5.R
+* Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-5
 - Added patch for non segfault in QT
 
-* Fri Apr 13 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-4.R
+* Fri Apr 13 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-4
 - Added patch for compile with gcc 4.7
 
-* Wed Mar 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-3.R
+* Wed Mar 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-3
 - Switch to GTK3 interface
 
-* Tue Feb 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-2.R
+* Tue Feb 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-2
 - Back to GTK2 interface
 
-* Tue Feb 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-1.R
+* Tue Feb 21 2012 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.6-1
 - Update to 2.2.6
 
-* Tue Dec 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-2.R
+* Tue Dec 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-2
 - Removed php
 
-* Mon Dec 26 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-2.R
+* Mon Dec 26 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.5-2
 - Update to 2.2.5
 
-* Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-2.R
+* Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-2
 - Added description in russian language
 
-* Mon Oct 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-1.R
+* Mon Oct 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 2.2.4-1
 - Update to 2.2.4
 
-* Mon Jun 27 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.3-1.R
+* Mon Jun 27 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.3-1
 - update to 2.2.3
 
-* Mon Apr 25 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.2-1.R
+* Mon Apr 25 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 2.2.2-1
 - update to 2.2.2
 - added BR: libidn-devel
 
