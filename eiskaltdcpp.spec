@@ -25,9 +25,9 @@ BuildRequires:  libidn-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  pcre-devel
 BuildRequires:  miniupnpc-devel
-#Bugreport https://code.google.com/p/eiskaltdc/issues/detail?id=1435
-#BuildRequires:  lua-devel
+BuildRequires:  lua-devel
 
+Requires:       %{name}-gui%{?_isa} = %{version}-%{release}
 
 %description
 EiskaltDC++ is a program the uses the Direct Connect protocol. It is compatible
@@ -44,6 +44,7 @@ Group:      Applications/Internet
 Summary:    GTK-based graphical interface
 Summary(ru):Графический интерфейс GTK
 Requires:   %{name}%{?_isa} = %{version}-%{release}
+Provides:   %{name}-gui%{?_isa} = %{version}-%{release}
 
 %description gtk
 Gtk interface using Gtk3 library.
@@ -57,6 +58,7 @@ Group:      Applications/Internet
 Summary:    Qt-based graphical interface
 Summary(ru):Графический интерфейс QT
 Requires:   %{name}%{?_isa} = %{version}-%{release}
+Provides:   %{name}-gui%{?_isa} = %{version}-%{release}
 
 %description qt
 Qt-based graphical interface.
@@ -66,9 +68,15 @@ Qt-based graphical interface.
 
 %prep
 %setup -q
+#https://github.com/eiskaltdcpp/eiskaltdcpp/issues/27
+lua_version=`lua -v 2>&1 | cut -d ' ' -f2 | cut -d '.' -f1,2`
+if [ "$lua_version" = "5.2" ]
+then
+    sed -i -e 's/Lua51/Lua52/' CMakeLists.txt cmake/FindLua52.cmake
+fi
 
 %build
-rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
+rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
 %cmake \
     -DUSE_ASPELL=ON \
     -DUSE_QT_QML=ON \
@@ -78,17 +86,18 @@ rm -rf examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
     -DDBUS_NOTIFY=ON \
     -DUSE_JS=ON \
     -DPERL_REGEX=ON \
-    -DUSE_CLI_XMLRPC=ON \
+    -DUSE_CLI_XMLRPC=OFF \
     -DWITH_SOUNDS=ON \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo
-#     -DLUA_SCRIPT=ON \
-#     -DWITH_LUASCRIPTS=ON \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DLUA_SCRIPT=ON \
+    -DWITH_LUASCRIPTS=ON
 
 make %{?_smp_mflags}
 
 
 %install
 %make_install
+rm -rf %{buildroot}%{_datadir}/%{name}/examples/*.php
 desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 %find_lang %{name}-gtk
@@ -101,16 +110,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 %files -f lib%{name}.lang
 %doc AUTHORS COPYING LICENSE README TODO
-%{_bindir}/%{name}-cli-xmlrpc
-%{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
-#%{_datadir}/%{name}/luascripts
+#%{_bindir}/%{name}-cli-xmlrpc
+#%{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
+%{_datadir}/%{name}/luascripts
 %{_datadir}/%{name}/emoticons
 %{_datadir}/%{name}/examples
 %{_datadir}/%{name}/sounds
 %{_libdir}/libeiskaltdcpp.so.*
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/pixmaps/*.png
-%{_mandir}/man?/%{name}-cli-xmlrpc.1.gz
+#%{_mandir}/man?/%{name}-cli-xmlrpc.1.gz
 
 
 %files gtk -f %{name}-gtk.lang
