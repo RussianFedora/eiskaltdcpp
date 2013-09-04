@@ -77,6 +77,10 @@ fi
 
 %build
 rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
+if [ "%{fedora}" = "18" ]
+then
+    export LDFLAGS="-lboost_system"
+fi
 %cmake \
     -DUSE_ASPELL=ON \
     -DUSE_QT_QML=ON \
