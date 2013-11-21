@@ -1,11 +1,10 @@
 Name:       eiskaltdcpp
 Version:    2.2.9
-Release:    1%{?dist}
-Summary:    QT Direct Connect client
-Summary(ru):Клиент сети Direct Connect на QT
+Release:    2%{?dist}
+Summary:    Qt Direct Connect client
+Summary(ru):Клиент сети Direct Connect на Qt
 
 License:    GPLv3
-Group:      Applications/Internet
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 
@@ -40,23 +39,21 @@ EiskaltDC++ использует протокол Direct Connect. Програм
 производными. EiskaltDC++ взаимодействует со всем обычным ПО хабов DC.
 
 %package gtk
-Group:      Applications/Internet
 Summary:    GTK-based graphical interface
 Summary(ru):Графический интерфейс GTK
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Provides:   %{name}-gui%{?_isa} = %{version}-%{release}
 
 %description gtk
-Gtk interface using Gtk3 library.
+GTK+ 3 interface using GTK+ 3 library.
 
 %description gtk -l ru
-Gtk интерфейс с использование библиотеки Gtk3.
+GTK+ 3 интерфейс с использование библиотеки GTK+ 3.
 
 
 %package qt
-Group:      Applications/Internet
 Summary:    Qt-based graphical interface
-Summary(ru):Графический интерфейс QT
+Summary(ru):Графический интерфейс Qt
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Provides:   %{name}-gui%{?_isa} = %{version}-%{release}
 
@@ -64,7 +61,7 @@ Provides:   %{name}-gui%{?_isa} = %{version}-%{release}
 Qt-based graphical interface.
 
 %description qt -l ru
-Интерфейс QT для %{name}.
+Интерфейс Qt для %{name}.
 
 %prep
 %setup -q
@@ -90,9 +87,8 @@ fi
     -DDBUS_NOTIFY=ON \
     -DUSE_JS=ON \
     -DPERL_REGEX=ON \
-    -DUSE_CLI_XMLRPC=OFF \
+    -DUSE_CLI_XMLRPC=ON \
     -DWITH_SOUNDS=ON \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DLUA_SCRIPT=ON \
     -DWITH_LUASCRIPTS=ON
 
@@ -114,8 +110,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 %files -f lib%{name}.lang
 %doc AUTHORS COPYING LICENSE README TODO
-#%{_bindir}/%{name}-cli-xmlrpc
-#%{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
+%{_bindir}/%{name}-cli-xmlrpc
+%{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
 %{_datadir}/%{name}/luascripts
 %{_datadir}/%{name}/emoticons
 %{_datadir}/%{name}/examples
@@ -123,7 +119,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 %{_libdir}/libeiskaltdcpp.so.*
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/pixmaps/*.png
-#%{_mandir}/man?/%{name}-cli-xmlrpc.1.gz
+%{_mandir}/man?/%{name}-cli-xmlrpc.1.gz
 
 
 %files gtk -f %{name}-gtk.lang
@@ -142,6 +138,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
+* Fri Aug 30 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-2
+- Clean spec and descriptions
+- Enable cli-xmlrpc
+
 * Fri Aug 30 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-1
 - Update to 2.2.9
 
