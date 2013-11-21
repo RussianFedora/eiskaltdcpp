@@ -4,7 +4,7 @@ Release:    2%{?dist}
 Summary:    Qt Direct Connect client
 Summary(ru):Клиент сети Direct Connect на Qt
 
-License:    GPLv3
+License:    GPLv3+ with exceptions
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 
@@ -26,7 +26,7 @@ BuildRequires:  pcre-devel
 BuildRequires:  miniupnpc-devel
 BuildRequires:  lua-devel
 
-Requires:       %{name}-gui%{?_isa} = %{version}-%{release}
+#Requires:       %{name}-gui%{?_isa} = %{version}-%{release}
 
 %description
 EiskaltDC++ is a program the uses the Direct Connect protocol. It is compatible
@@ -141,6 +141,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 * Fri Aug 30 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-2
 - Clean spec and descriptions
 - Enable cli-xmlrpc
+- License corrected
 
 * Fri Aug 30 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-1
 - Update to 2.2.9
