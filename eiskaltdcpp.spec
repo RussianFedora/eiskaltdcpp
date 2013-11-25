@@ -1,10 +1,10 @@
 Name:       eiskaltdcpp
 Version:    2.2.9
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Qt Direct Connect client
 Summary(ru):Клиент сети Direct Connect на Qt
 
-License:    GPLv3+ with exceptions
+License:    BSD, GPLv2+ and GPLv3+ with exceptions
 URL:        http://code.google.com/p/eiskaltdc
 Source0:    http://eiskaltdc.googlecode.com/files/%{name}-%{version}.tar.xz
 
@@ -71,6 +71,8 @@ if [ "$lua_version" = "5.2" ]
 then
     sed -i -e 's/Lua51/Lua52/' CMakeLists.txt cmake/FindLua52.cmake
 fi
+#Remove bundled libs
+rm -rf json upnp
 
 %build
 rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
@@ -138,7 +140,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
-* Fri Aug 30 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-2
+* Mon Nov 25 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-3
+- Use multiple licenses
+- Remove bundled libs
+
+* Fri Nov 22 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-2
 - Clean spec and descriptions
 - Enable cli-xmlrpc
 - License corrected
