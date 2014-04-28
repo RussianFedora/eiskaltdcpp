@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.9
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Qt Direct Connect client
 Summary(ru):Клиент сети Direct Connect на Qt
 
@@ -25,6 +25,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  pcre-devel
 BuildRequires:  miniupnpc-devel
 BuildRequires:  lua-devel
+
+Provides:       perl(cli-xmlrpc-config.pl)
 
 
 %description
@@ -139,8 +141,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
-* Mon Apr 28 2014 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-4
+* Mon Apr 28 2014 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-5
 - Rebuild
+- Correct provides
 
 * Mon Nov 25 2013 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-3
 - Use multiple licenses
