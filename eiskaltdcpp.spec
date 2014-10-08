@@ -1,6 +1,6 @@
 Name:       eiskaltdcpp
 Version:    2.2.9
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Qt Direct Connect client
 Summary(ru):Клиент сети Direct Connect на Qt
 
@@ -141,6 +141,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
+* Wed Oct 08 2014 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-6
+- Bump rebuild for Fedora 21
+
 * Mon Apr 28 2014 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-5
 - Rebuild
 - Correct provides
