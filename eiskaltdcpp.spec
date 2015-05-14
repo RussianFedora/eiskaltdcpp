@@ -6,7 +6,7 @@ Summary(ru):Клиент сети Direct Connect на Qt
 
 License:    BSD, GPLv2+ and GPLv3+ with exceptions
 URL:        http://code.google.com/p/eiskaltdc
-Source0:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
@@ -143,6 +143,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 %changelog
 * Thu May 14 2015 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-7
 - Bump rebuild for Fedora 22
+- Change URL to Sourceforge
 
 * Wed Oct 08 2014 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-6
 - Bump rebuild for Fedora 21
