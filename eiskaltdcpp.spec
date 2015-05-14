@@ -72,6 +72,13 @@ if [ "$lua_version" = "5.2" ]
 then
     sed -i -e 's/Lua51/Lua52/' CMakeLists.txt cmake/FindLua52.cmake
 fi
+if [ "$lua_version" = "5.3" ]
+then
+    cp cmake/FindLua52.cmake cmake/FindLua53.cmake
+    sed -i -e 's/52/53/g' cmake/FindLua53.cmake
+    sed -i -e 's/5.2/5.3/g' cmake/FindLua53.cmake
+    sed -i -e 's/Lua51/Lua53/' CMakeLists.txt
+fi
 #Remove bundled libs
 rm -rf json upnp
 
