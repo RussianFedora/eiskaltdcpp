@@ -1,12 +1,12 @@
 Name:       eiskaltdcpp
-Version:    2.2.9
-Release:    7%{?dist}
+Version:    2.2.10
+Release:    1%{?dist}
 Summary:    Qt Direct Connect client
 Summary(ru):Клиент сети Direct Connect на Qt
 
 License:    BSD, GPLv2+ and GPLv3+ with exceptions
 URL:        http://code.google.com/p/eiskaltdc
-Source0:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Source0:    https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
@@ -65,16 +65,16 @@ Qt-based graphical interface.
 Интерфейс Qt для %{name}.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}
 #https://github.com/eiskaltdcpp/eiskaltdcpp/issues/27
 lua_version=`lua -v 2>&1 | cut -d ' ' -f2 | cut -d '.' -f1,2`
 if [ "$lua_version" = "5.2" ]
 then
-    sed -i -e 's/Lua51/Lua52/' CMakeLists.txt cmake/FindLua52.cmake
+    sed -i -e 's/Lua51/Lua52/' CMakeLists.txt cmake/FindLua.cmake
 fi
 if [ "$lua_version" = "5.3" ]
 then
-    cp cmake/FindLua52.cmake cmake/FindLua53.cmake
+    cp cmake/FindLua.cmake cmake/FindLua53.cmake
     sed -i -e 's/52/53/g' cmake/FindLua53.cmake
     sed -i -e 's/5.2/5.3/g' cmake/FindLua53.cmake
     sed -i -e 's/Lua51/Lua53/' CMakeLists.txt
@@ -148,6 +148,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
+* Mon Sep 28 2015 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.10-1
+- Update to 2.2.10
+
 * Thu May 14 2015 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.9-7
 - Bump rebuild for Fedora 22
 - Change URL to Sourceforge
