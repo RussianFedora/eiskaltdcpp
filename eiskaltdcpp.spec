@@ -1,30 +1,29 @@
-Name:       eiskaltdcpp
-Version:    2.2.10
-Release:    1%{?dist}
-Summary:    Qt Direct Connect client
-Summary(ru):Клиент сети Direct Connect на Qt
+Name:           eiskaltdcpp
+Version:        2.2.10
+Release:        2%{?dist}
+Summary:        Qt Direct Connect client
+Summary(ru):    Клиент сети Direct Connect на Qt
 
-License:    BSD, GPLv2+ and GPLv3+ with exceptions
-URL:        http://code.google.com/p/eiskaltdc
-Source0:    https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz
+License:        BSD, GPLv2+ and GPLv3+ with exceptions
+URL:            http://code.google.com/p/eiskaltdc
+Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  boost-devel
-BuildRequires:  aspell-devel
-BuildRequires:  libupnp-devel
-BuildRequires:  qt4-devel
-BuildRequires:  bzip2-devel
-BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig(aspell)
+BuildRequires:  pkgconfig(libupnp)
+BuildRequires:  pkgconfig(Qt)
+BuildRequires:  pkgconfig(bzip2)
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  gettext-devel
-BuildRequires:  gtk3-devel
-BuildRequires:  libnotify-devel
-BuildRequires:  lua-devel
-BuildRequires:  libglade2-devel
-BuildRequires:  libidn-devel
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libnotify)
+BuildRequires:  pkgconfig(lua)
+BuildRequires:  pkgconfig(libglade-2.0)
+BuildRequires:  pkgconfig(libidn)
 BuildRequires:  desktop-file-utils
-BuildRequires:  pcre-devel
+BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  miniupnpc-devel
-BuildRequires:  lua-devel
 
 Provides:       perl(cli-xmlrpc-config.pl)
 
@@ -84,10 +83,7 @@ rm -rf json upnp
 
 %build
 rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
-if [ "%{fedora}" = "18" ]
-then
-    export LDFLAGS="-lboost_system"
-fi
+
 %cmake \
     -DUSE_ASPELL=ON \
     -DUSE_QT_QML=ON \
@@ -102,7 +98,7 @@ fi
     -DLUA_SCRIPT=ON \
     -DWITH_LUASCRIPTS=ON
 
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -119,7 +115,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %files -f lib%{name}.lang
-%doc AUTHORS COPYING LICENSE README TODO
+%doc AUTHORS ChangeLog.txt README TODO
+%license COPYING LICENSE
 %{_bindir}/%{name}-cli-xmlrpc
 %{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
 %{_datadir}/%{name}/luascripts
@@ -148,6 +145,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
+* Fri Jun 24 2016 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.10-2
+- Rebuild for new boost
+
 * Mon Sep 28 2015 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.10-1
 - Update to 2.2.10
 
