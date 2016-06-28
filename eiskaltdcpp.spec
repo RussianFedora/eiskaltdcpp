@@ -25,6 +25,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  miniupnpc-devel
 
+Requires:       hicolor-icon-theme
+
 Provides:       perl(cli-xmlrpc-config.pl)
 
 
