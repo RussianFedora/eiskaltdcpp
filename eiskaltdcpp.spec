@@ -1,18 +1,25 @@
-Name:           eiskaltdcpp
-Version:        2.2.10
-Release:        2%{?dist}
-Summary:        Qt Direct Connect client
-Summary(ru):    Клиент сети Direct Connect на Qt
+%global gitcommit_full 52af555638f7b1b4baa58b43be75985fcf82760e
+%global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
+%global date 20160510
 
-License:        BSD, GPLv2+ and GPLv3+ with exceptions
-URL:            http://code.google.com/p/eiskaltdc
-Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz
+Name:           eiskaltdcpp
+Version:        2.2.11
+Release:        0.%{date}git%{gitcommit}%{dist}
+Summary:        Direct Connect client
+Summary(ru):    Клиент сети Direct Connect
+
+License:        GPLv3+
+URL:            https://github.com/eiskaltdcpp/eiskaltdcpp
+Source0:        %{url}/tarball/%{gitcommit_full}
 
 BuildRequires:  cmake >= 2.6.3
+BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(aspell)
 BuildRequires:  pkgconfig(libupnp)
-BuildRequires:  pkgconfig(Qt)
+BuildRequires:  pkgconfig(Qt5)
+BuildRequires:  pkgconfig(Qt5Multimedia)
+BuildRequires:  pkgconfig(Qt5Declarative)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  gettext-devel
@@ -27,7 +34,7 @@ BuildRequires:  miniupnpc-devel
 
 Requires:       hicolor-icon-theme
 
-Provides:       perl(cli-xmlrpc-config.pl)
+Provides:       perl(cli-xmlrpc-config.pl) = 0.1
 
 
 %description
@@ -66,26 +73,15 @@ Qt-based graphical interface.
 Интерфейс Qt для %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}
-#https://github.com/eiskaltdcpp/eiskaltdcpp/issues/27
-lua_version=`lua -v 2>&1 | cut -d ' ' -f2 | cut -d '.' -f1,2`
-if [ "$lua_version" = "5.2" ]
-then
-    sed -i -e 's/Lua51/Lua52/' CMakeLists.txt cmake/FindLua.cmake
-fi
-if [ "$lua_version" = "5.3" ]
-then
-    cp cmake/FindLua.cmake cmake/FindLua53.cmake
-    sed -i -e 's/52/53/g' cmake/FindLua53.cmake
-    sed -i -e 's/5.2/5.3/g' cmake/FindLua53.cmake
-    sed -i -e 's/Lua51/Lua53/' CMakeLists.txt
-fi
-#Remove bundled libs
+%autosetup -n %{name}-%{name}-%{gitcommit}
+
+# Remove bundled libs
 rm -rf json upnp
+rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
+# Correct rpmlint W: crypto-policy-non-compliance-openssl
+sed -i -e 's/, ciphersuites/, "PROFILE=SYSTEM"/g' dcpp/CryptoManager.cpp
 
 %build
-rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
-
 %cmake \
     -DUSE_ASPELL=ON \
     -DUSE_QT_QML=ON \
@@ -105,8 +101,9 @@ rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
 
 %install
 %make_install
-rm -rf %{buildroot}%{_datadir}/%{name}/examples/*.php
-desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %find_lang %{name}-gtk
 %find_lang lib%{name}
@@ -120,6 +117,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 %doc AUTHORS ChangeLog.txt README TODO
 %license COPYING LICENSE
 %{_bindir}/%{name}-cli-xmlrpc
+%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
 %{_datadir}/%{name}/luascripts
 %{_datadir}/%{name}/emoticons
@@ -128,7 +126,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 %{_libdir}/libeiskaltdcpp.so.*
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/pixmaps/*.png
-%{_mandir}/man?/%{name}-cli-xmlrpc.1.gz
+%{_mandir}/man?/%{name}-cli-xmlrpc.1.*
 
 
 %files gtk -f %{name}-gtk.lang
@@ -147,6 +145,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*qt*.desktop
 
 
 %changelog
+* Tue Aug 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20160510git52af555
+- Clean spec
+- Switch to git version
+
 * Fri Jun 24 2016 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.10-2
 - Rebuild for new boost
 
