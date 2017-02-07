@@ -1,21 +1,20 @@
-From 713d4c70acc587205324cf8a0d6ab47bae5ca52b Mon Sep 17 00:00:00 2001
+From 3b9c502ff5c98856d4f8fdb7ed3c6ef34448bfb7 Mon Sep 17 00:00:00 2001
 From: Igor Gnatenko <ignatenkobrain@fedoraproject.org>
 Date: Tue, 7 Feb 2017 09:19:18 +0100
 Subject: [PATCH] crypto: add support for OpenSSL 1.1
 
-In OpenSSL 1.1:
-* BN is opaque structure
-  -> We'll use DH_set0_pqg() for OpenSSL 1.1 and direct access for older
-* SSL is opaque structure
-  -> We'll use well-known function SSL_is_server() for all OpenSSL versions
+In OpenSSL 1.1 BN and SSL are opaque structures.
+
+* BN_set0_pqg() has been implemented in 1.1
+* SSL_is_server() has been implemented in 1.0.2 and 1.1
 
 Reported-by: Vasiliy Glazov <vascom2@gmail.com>
 Closes: https://github.com/eiskaltdcpp/eiskaltdcpp/issues/356
 Signed-off-by: Igor Gnatenko <ignatenkobrain@fedoraproject.org>
 ---
  dcpp/CryptoManager.cpp | 15 +++++++++++----
- dcpp/SSLSocket.cpp     |  4 ++--
- 2 files changed, 13 insertions(+), 6 deletions(-)
+ dcpp/SSLSocket.cpp     | 11 +++++++++--
+ 2 files changed, 20 insertions(+), 6 deletions(-)
 
 diff --git a/dcpp/CryptoManager.cpp b/dcpp/CryptoManager.cpp
 index 08893a7..b672d92 100644
@@ -51,10 +50,24 @@ index 08893a7..b672d92 100644
  
          SSL_CTX_set_options(clientContext, SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3 | SSL_OP_NO_COMPRESSION);
 diff --git a/dcpp/SSLSocket.cpp b/dcpp/SSLSocket.cpp
-index 1e283ee..a54b7d2 100644
+index 1e283ee..d4dc123 100644
 --- a/dcpp/SSLSocket.cpp
 +++ b/dcpp/SSLSocket.cpp
-@@ -54,9 +54,9 @@ bool SSLSocket::waitConnected(uint32_t millis) {
+@@ -37,6 +37,13 @@ void SSLSocket::connect(const string& aIp, uint16_t aPort) {
+     waitConnected(0);
+ }
+ 
++#if OPENSSL_VERSION_NUMBER < 0x10002000L
++static inline int SSL_is_server(SSL *s)
++{
++    return s->server;
++}
++#endif
++
+ bool SSLSocket::waitConnected(uint32_t millis) {
+     if(!ssl) {
+         if(!Socket::waitConnected(millis)) {
+@@ -54,9 +61,9 @@ bool SSLSocket::waitConnected(uint32_t millis) {
      }
  
      while(true) {
@@ -66,3 +79,6 @@ index 1e283ee..a54b7d2 100644
              return true;
          }
          if(!waitWant(ret, millis)) {
+-- 
+2.7.4
+
