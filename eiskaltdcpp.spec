@@ -1,6 +1,6 @@
-%global gitcommit_full 52af555638f7b1b4baa58b43be75985fcf82760e
+%global gitcommit_full 0fa9a730eb63ba1a4f9440d5a746e8d6df094286
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
-%global date 20160510
+%global date 20161119
 
 Name:           eiskaltdcpp
 Version:        2.2.11
@@ -109,8 +109,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %find_lang lib%{name}
 
 %post -p /sbin/ldconfig
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun -p /sbin/ldconfig
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f lib%{name}.lang
@@ -145,6 +153,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20161119git0fa9a73
+- Update to last git version
+- Add scriptlet for icons
+
 * Tue Aug 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20160510git52af555
 - Clean spec
 - Switch to git version
