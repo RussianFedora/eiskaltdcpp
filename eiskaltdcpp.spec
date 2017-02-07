@@ -11,6 +11,7 @@ Summary(ru):    Клиент сети Direct Connect
 License:        GPLv3+
 URL:            https://github.com/eiskaltdcpp/eiskaltdcpp
 Source0:        %{url}/tarball/%{gitcommit_full}
+Patch0:         %{name}-openssl11.patch
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  cmake(Qt5LinguistTools)
@@ -73,7 +74,7 @@ Qt-based graphical interface.
 Интерфейс Qt для %{name}.
 
 %prep
-%autosetup -n %{name}-%{name}-%{gitcommit}
+%autosetup -p1 -n %{name}-%{name}-%{gitcommit}
 
 # Remove bundled libs
 rm -rf json upnp
@@ -122,7 +123,7 @@ fi
 
 
 %files -f lib%{name}.lang
-%doc AUTHORS ChangeLog.txt README TODO
+%doc AUTHORS ChangeLog.txt README.md TODO
 %license COPYING LICENSE
 %{_bindir}/%{name}-cli-xmlrpc
 %dir %{_datadir}/%{name}
@@ -156,6 +157,7 @@ fi
 * Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20161119git0fa9a73
 - Update to last git version
 - Add scriptlet for icons
+- Add patch for openssl 1.1.0
 
 * Tue Aug 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20160510git52af555
 - Clean spec
