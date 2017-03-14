@@ -73,7 +73,7 @@ Qt-based graphical interface.
 Интерфейс Qt для %{name}.
 
 %prep
-%autosetup -p1 -n %{name}-%{name}-%{gitcommit}
+%autosetup -n %{name}-%{name}-%{gitcommit}
 
 # Remove bundled libs
 rm -rf json upnp
