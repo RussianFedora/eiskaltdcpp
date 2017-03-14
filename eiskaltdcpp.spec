@@ -1,6 +1,6 @@
-%global gitcommit_full 0fa9a730eb63ba1a4f9440d5a746e8d6df094286
+%global gitcommit_full 3b9c502ff5c98856d4f8fdb7ed3c6ef34448bfb7
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
-%global date 20161119
+%global date 20170207
 
 Name:           eiskaltdcpp
 Version:        2.2.11
@@ -11,7 +11,6 @@ Summary(ru):    Клиент сети Direct Connect
 License:        GPLv3+
 URL:            https://github.com/eiskaltdcpp/eiskaltdcpp
 Source0:        %{url}/tarball/%{gitcommit_full}
-Patch0:         %{name}-openssl11.patch
 
 BuildRequires:  cmake >= 2.6.3
 BuildRequires:  cmake(Qt5LinguistTools)
@@ -154,6 +153,9 @@ fi
 
 
 %changelog
+* Tue Mar 14 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20170214git3b9c502
+- Update to last git version
+
 * Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20161119git0fa9a73
 - Update to last git version
 - Add scriptlet for icons
