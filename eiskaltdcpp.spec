@@ -4,7 +4,7 @@
 
 Name:           eiskaltdcpp
 Version:        2.2.11
-Release:        0.%{date}git%{gitcommit}%{dist}
+Release:        1.%{date}git%{gitcommit}%{dist}
 Summary:        Direct Connect client
 Summary(ru):    Клиент сети Direct Connect
 
@@ -33,6 +33,7 @@ BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  miniupnpc-devel
 
 Requires:       hicolor-icon-theme
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`";echo $version))
 
 Provides:       perl(cli-xmlrpc-config.pl) = 0.1
 
@@ -108,10 +109,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %find_lang %{name}-gtk
 %find_lang lib%{name}
 
-%post -p /sbin/ldconfig
+%post
+/sbin/ldconfig
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
-%postun -p /sbin/ldconfig
+%postun
+/sbin/ldconfig
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
@@ -126,7 +129,7 @@ fi
 %license COPYING LICENSE
 %{_bindir}/%{name}-cli-xmlrpc
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/cli/cli-xmlrpc-config.pl
+%{_datadir}/%{name}/cli
 %{_datadir}/%{name}/luascripts
 %{_datadir}/%{name}/emoticons
 %{_datadir}/%{name}/examples
@@ -153,6 +156,9 @@ fi
 
 
 %changelog
+* Thu Mar 30 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-1.20170214git3b9c502
+- Corrected some rpmlint errors and warnings
+
 * Tue Mar 14 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-0.20170214git3b9c502
 - Update to last git version
 
