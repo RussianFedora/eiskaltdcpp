@@ -4,11 +4,12 @@
 
 Name:           eiskaltdcpp
 Version:        2.2.11
-Release:        1.%{date}git%{gitcommit}%{dist}
+Release:        2.%{date}git%{gitcommit}%{?dist}
 Summary:        Direct Connect client
 Summary(ru):    Клиент сети Direct Connect
 
-License:        GPLv3+
+# The entire source code is GPLv3+ except FlowLayout.cpp and .h which is LGPLv2+
+License:        GPLv3+ and LGPLv2+
 URL:            https://github.com/eiskaltdcpp/eiskaltdcpp
 Source0:        %{url}/tarball/%{gitcommit_full}
 
@@ -80,7 +81,7 @@ Qt-based graphical interface.
 rm -rf json upnp
 rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
 # Correct rpmlint W: crypto-policy-non-compliance-openssl
-sed -i -e 's/, ciphersuites/, "PROFILE=SYSTEM"/g' dcpp/CryptoManager.cpp
+sed -i '/SSL_CTX_set_cipher_list/d' dcpp/CryptoManager.cpp
 
 %build
 %cmake \
@@ -123,6 +124,18 @@ fi
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
+%post gtk
+/usr/bin/update-desktop-database &> /dev/null || :
+
+%postun gtk
+/usr/bin/update-desktop-database &> /dev/null || :
+
+%post qt
+/usr/bin/update-desktop-database &> /dev/null || :
+
+%postun qt
+/usr/bin/update-desktop-database &> /dev/null || :
+
 
 %files -f lib%{name}.lang
 %doc AUTHORS ChangeLog.txt README.md TODO
@@ -156,6 +169,9 @@ fi
 
 
 %changelog
+* Wed Apr 05 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-2.20170214git3b9c502
+- Corrected some spec ussues
+
 * Thu Mar 30 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-1.20170214git3b9c502
 - Corrected some rpmlint errors and warnings
 
