@@ -4,7 +4,7 @@
 
 Name:           eiskaltdcpp
 Version:        2.2.11
-Release:        2.%{date}git%{gitcommit}%{?dist}
+Release:        3.%{date}git%{gitcommit}%{?dist}
 Summary:        Direct Connect client
 Summary(ru):    Клиент сети Direct Connect
 
@@ -20,7 +20,6 @@ BuildRequires:  pkgconfig(aspell)
 BuildRequires:  pkgconfig(libupnp)
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5Multimedia)
-BuildRequires:  pkgconfig(Qt5Declarative)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  gettext-devel
@@ -86,7 +85,6 @@ sed -i '/SSL_CTX_set_cipher_list/d' dcpp/CryptoManager.cpp
 %build
 %cmake \
     -DUSE_ASPELL=ON \
-    -DUSE_QT_QML=ON \
     -DFREE_SPACE_BAR_C=ON \
     -DUSE_MINIUPNP=ON \
     -DUSE_GTK3=ON \
@@ -169,6 +167,9 @@ fi
 
 
 %changelog
+* Tue Jun 06 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-3.20170214git3b9c502
+- Disabled QT_QML
+
 * Wed Apr 05 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-2.20170214git3b9c502
 - Corrected some spec ussues
 
