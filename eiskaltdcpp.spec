@@ -31,6 +31,7 @@ BuildRequires:  pkgconfig(libidn)
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  miniupnpc-devel
+BuildRequires:  pkgconfig(Qt5Script)
 
 Requires:       hicolor-icon-theme
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`";echo $version))
