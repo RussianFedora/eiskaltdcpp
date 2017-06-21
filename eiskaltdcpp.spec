@@ -4,12 +4,12 @@
 
 Name:           eiskaltdcpp
 Version:        2.2.11
-Release:        3.%{date}git%{gitcommit}%{?dist}
+Release:        4.%{date}git%{gitcommit}%{?dist}
 Summary:        Direct Connect client
 Summary(ru):    Клиент сети Direct Connect
 
 # The entire source code is GPLv3+ except FlowLayout.cpp and .h which is LGPLv2+
-License:        GPLv3+ and LGPLv2+
+License:        GPLv3+ and BSD and Boost
 URL:            https://github.com/eiskaltdcpp/eiskaltdcpp
 Source0:        %{url}/tarball/%{gitcommit_full}
 
@@ -35,6 +35,7 @@ BuildRequires:  pkgconfig(Qt5Script)
 
 Requires:       hicolor-icon-theme
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`";echo $version))
+Requires:       %{name}-data = %{version}-%{release}
 
 Provides:       perl(cli-xmlrpc-config.pl) = 0.1
 
@@ -73,6 +74,18 @@ Qt-based graphical interface.
 
 %description qt -l ru
 Интерфейс Qt для %{name}.
+
+%package data
+Summary:    Data files for eiskaltdcpp
+Summary(ru):Файлы данных для eiskaltdcpp
+Requires:   %{name} = %{version}-%{release}
+BuildArch:  noarch
+
+%description data
+Necessary data files for %{name}.
+
+%description data -l ru
+Необходимые файлы данных для %{name}.
 
 %prep
 %autosetup -n %{name}-%{name}-%{gitcommit}
@@ -140,15 +153,7 @@ fi
 %doc AUTHORS ChangeLog.txt README.md TODO
 %license COPYING LICENSE
 %{_bindir}/%{name}-cli-xmlrpc
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/cli
-%{_datadir}/%{name}/luascripts
-%{_datadir}/%{name}/emoticons
-%{_datadir}/%{name}/examples
-%{_datadir}/%{name}/sounds
 %{_libdir}/libeiskaltdcpp.so.*
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/pixmaps/*.png
 %{_mandir}/man?/%{name}-cli-xmlrpc.1.*
 
 
@@ -166,8 +171,21 @@ fi
 %{_datadir}/applications/*qt*.desktop
 %{_datadir}/%{name}/update_geoip
 
+%files data
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/cli
+%{_datadir}/%{name}/luascripts
+%{_datadir}/%{name}/emoticons
+%{_datadir}/%{name}/examples
+%{_datadir}/%{name}/sounds
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/pixmaps/*.png
+
 
 %changelog
+* Tue Jun 20 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-4.20170214git3b9c502
+- Clean spec
+
 * Tue Jun 06 2017 Vasiliy N. Glazov <vascom2@gmail.com> 2.2.11-3.20170214git3b9c502
 - Disabled QT_QML
 
